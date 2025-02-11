@@ -1,0 +1,37 @@
+
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import './App.css'
+
+export default function App() {
+  return (
+    <>
+    <div className='container'>
+      <form action="">
+        <h1>Login</h1>
+        <div className='input-box'>
+          <input type='text' placeholder='Username' name='username' required/>
+          <FaUser className="icon"/>
+        </div>
+        <div className='input-box'>
+          <input type='password' placeholder='Password' name='password' required/>
+          <FaLock className="icon"/>
+        </div>
+        <div className='remember-box'>
+          <label>
+          <input type='checkbox' name='rememberMe'/>
+          Remember me</label>
+          <a href='/reset'>Forgot Password?</a>
+        </div>
+        <div className='login-button'>
+          <button name='rememberMe'><span>Login</span></button>
+        </div>
+        <div className='register'>
+          <p>Don't have a account? <a href='/register'>Register</a></p>
+        </div>
+      </form>
+    </div>
+
+    </>
+  )
+}
