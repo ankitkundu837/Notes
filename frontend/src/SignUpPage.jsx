@@ -22,12 +22,13 @@ export default function SignUpPage() {
     const formBody = Object.keys(body).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
     const requestOptions = {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
       body: formBody,
     }
     try {
       const response = await fetch(
-        'http://localhost:8001/user/signup', requestOptions, { withCredentials: true })
+        'http://localhost:8001/user/signup', requestOptions)
         const result = await response.json()
         console.log(result)
         if(!result.sucess)
