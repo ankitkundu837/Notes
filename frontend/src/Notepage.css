@@ -1,0 +1,47 @@
+html
+{
+    background: #f7f4eae0 ;
+}
+a
+{
+    text-decoration: none;
+}
+
+.navbar
+{
+    background: white;
+    position: fixed;
+    width: 100%;
+    padding: 20px 10px;
+    display: flex;
+    gap: 7%;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.navbar a
+{
+    position: relative;
+    font-size: 18px;
+    color: #443850 ;
+    font-weight: 500;
+}
+
+
+.navbar a:hover::before
+{
+    width: 100%;
+    background: #7C90DB;
+}
+.navbar a::before
+{
+    content: '';
+    position: absolute;
+    width: 0;
+    top:100%;
+    left: 0;
+    height: 3px;
+    background: #f7f4eae0;
+    transition: 0.3s;
+}
