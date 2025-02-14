@@ -1,7 +1,6 @@
 
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import './LoginPage.css'
 import { Link } from "react-router-dom"
 
 export default function LoginPage() {

@@ -2,7 +2,6 @@
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { MdOutlineAlternateEmail } from "react-icons/md";
-import './SignUpPage.css'
 import { Link } from "react-router-dom"
 
 export default function SignUpPage() {
