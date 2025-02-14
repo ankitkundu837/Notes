@@ -1,37 +1,50 @@
-
-import { FaUser } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import './App.css'
+import LoginPage from './LoginPage.jsx'
+import SignUpPage from './SignUpPage.jsx'
+import Homepage from './Homepage.jsx'
+import { Route ,Routes,useLocation } from "react-router-dom"
+import { useEffect } from "react";
 
 export default function App() {
   return (
     <>
-    <div className='container'>
-      <form action="">
-        <h1>Login</h1>
-        <div className='input-box'>
-          <input type='text' placeholder='Username' name='username' required/>
-          <FaUser className="icon"/>
-        </div>
-        <div className='input-box'>
-          <input type='password' placeholder='Password' name='password' required/>
-          <FaLock className="icon"/>
-        </div>
-        <div className='remember-box'>
-          <label>
-          <input type='checkbox' name='rememberMe'/>
-          Remember me</label>
-          <a href='/reset'>Forgot Password?</a>
-        </div>
-        <div className='login-button'>
-          <button name='rememberMe'><span>Login</span></button>
-        </div>
-        <div className='register'>
-          <p>Don't have a account? <a href='/register'>Register</a></p>
-        </div>
-      </form>
-    </div>
-
+      <DynamicStyles/>
+      <Routes>
+        <Route path="/" element={<Homepage/>}/>
+        <Route path="/loginpage" element={<LoginPage/>}/>
+        <Route path="/signuppage" element={<SignUpPage/>}/>
+      </Routes>
     </>
   )
+}
+
+function DynamicStyles() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const stylesMap = {
+      "/": "/src/Homepage.css",
+      "/loginpage": "/src/Loginpage.css",
+      "/signuppage": "/src/SignUpPage.css",
+      "/todolist": "/styles/ToDoList.css",
+    };
+
+    const currentStyle = stylesMap[location.pathname];
+
+    if (currentStyle) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = currentStyle;
+      link.id = "dynamic-style";
+      document.head.appendChild(link);
+    }
+
+    return () => {
+      const existingLink = document.getElementById("dynamic-style");
+      if (existingLink) {
+        existingLink.remove();
+      }
+    };
+  }, [location.pathname]);
+
+  return null;
 }
