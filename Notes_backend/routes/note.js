@@ -98,4 +98,16 @@ router.get("/labels",async(req,res)=>{
     return res.json({"labels" : uniquelabels});
 })
 
+
+router.get("/labels",async(req,res)=>{
+    const allNotes = await note.find({ createdBy : req.user }); 
+    let labels=[];
+    allNotes.forEach(lab => {
+         labels.push(lab.label);
+    });
+    const uniquelabels = [...new Set(labels)];
+    // console.log("hello");
+    return res.json({"labels" : uniquelabels});
+})
+
 module.exports = router;
