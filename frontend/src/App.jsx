@@ -1,7 +1,7 @@
-import LoginPage from './LoginPage.jsx'
-import SignUpPage from './SignUpPage.jsx'
-import Homepage from './Homepage.jsx'
-import Notepage from './Notepage.jsx'
+import LoginPage from './components/Loginpage/LoginPage.jsx'
+import SignUpPage from './components/Signuppage/SignUpPage.jsx'
+import Homepage from './components/Homepage/Homepage.jsx'
+import Notepage from './components/Notepage/Notepage.jsx'
 import { Route ,Routes,useLocation } from "react-router-dom"
 import { useEffect } from "react";
 import "./index.css"
@@ -25,10 +25,10 @@ function DynamicStyles() {
 
   useEffect(() => {
     const stylesMap = {
-      "/": "/src/Homepage.css",
-      "/loginpage": "/src/Loginpage.css",
-      "/signuppage": "/src/SignUpPage.css",
-      "/notepage": "/src/Notepage.css",
+      "/": "/src/components/Homepage/Homepage.css",
+      "/loginpage": "/src/components/Loginpage/Loginpage.css",
+      "/signuppage": "/src/components/Signuppage/SignUpPage.css",
+      "/notepage": "/src/components/Notepage/Notepage.css",
     };
 
     const currentStyle = stylesMap[location.pathname];

@@ -1,4 +1,4 @@
-import Navbar from "./components/NavbarNotePage"
+import Navbar from "../NavbarNotePage"
 import { useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import { useEffect } from "react";
