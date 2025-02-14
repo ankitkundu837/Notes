@@ -25,12 +25,21 @@ app.use(checkForAuthenticationCookie("token"))
 app.use(express.static(path.resolve('./public')))
 
 app.get('/',async(req,res)=>{
-    const allNotes = await note.find({ createdBy : req.user });
+    const allNotes = await note.find({ createdBy : req.user , label : {$ne: "bin"}});
     return res.render('home',{
         user: req.user,
         notes: allNotes,
     });
 })
+
+app.get('/:label',async(req,res)=>{
+    const allNotes = await note.find({ createdBy : req.user , label : req.params.label});
+    return res.render('home',{
+        user: req.user,
+        notes: allNotes,
+    });
+})
+
 
 app.use('/user',userRoute) 
 // If any request start with /user then use `userRoute`
