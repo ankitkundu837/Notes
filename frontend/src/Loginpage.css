@@ -1,3 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+html
+{
+    background: #f7f4eae0 ;
+}
+body
+{
+    background-image: url("./images/background1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 .container
 {
   width: 420px;
@@ -173,4 +191,3 @@
 {
   text-decoration: underline;
 }
-
