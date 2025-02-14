@@ -11,6 +11,7 @@ const note = require('./models/note');
 
 const userRoute = require('./routes/user')
 const noteRoute = require('./routes/note')
+const getLabel = require('./routes/getLabel')
 
 const { checkForAuthenticationCookie } = require('./middlewares/authentication');
 const app = express();
@@ -32,12 +33,10 @@ app.use(express.static(path.resolve('./public')))
 
 app.get('/',async(req,res)=>{
     const allNotes = await note.find({ createdBy : req.user , label : {$ne: "bin"}});
-    console.log(allNotes)
-    return res.json(allNotes)
-    // return res.render('home',{
-    //     user: req.user,
-    //     notes: allNotes,
-    // });
+    return res.json({
+        user: req.user,
+        notes: allNotes
+    });
 })
 
 app.get('/:label',async(req,res)=>{
@@ -48,13 +47,10 @@ app.get('/:label',async(req,res)=>{
     });
 })
 
-
 app.use('/user',userRoute) 
 // If any request start with /user then use `userRoute`
 app.use('/note',noteRoute) 
-
-
-
+app.use('/getLabel', getLabel)
 
 app.listen(PORT , ()=>console.log(`Server started at PORT:${PORT}`));
 

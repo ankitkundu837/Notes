@@ -1,6 +1,4 @@
 const {Router} = require('express')
-const multer = require('multer')
-const path = require('path')
 const router = Router();
 const note = require('../models/note');
 
@@ -25,20 +23,25 @@ router.post('/',async(req, res)=>{
     // return res.redirect(`/note/${Note._id}`)
 })
 
-router.patch('/:label/:id', async (req, res) => {    
+router.patch('/:id', async (req, res) => {    
     try {
         const Note = await note.findById(req.params.id).populate("createdBy");
+        const {title, body, label} = req.body;
+        console.log(req.body)
         if(Note){
-            await note.updateOne(
-                {_id : req.params.id},
-                {$set : {"label" : req.params.label}}
-            );
-            return res.redirect('/');
-            // return res.json({message : 'label updated successfully'});
+            console.log(await note.findOne({_id : req.params.id}));
+            await note.updateOne({_id : req.params.id}, {$set : {
+                "title" : req.body.title,
+                "body" : req.body.body,
+                "label" : req.body.label,
+            }});
+            return res.json({
+                label_: label,
+            });
         }
     } catch (error) {
         console.error('Error updating label:', error);
-        res.status(500).send('Error deleting card.');
+        res.status(500).send('Error patching card.');
         // return res.json({message : 'error encountered'});
     }
 });
@@ -81,6 +84,30 @@ router.get('/:id',async(req, res)=>{
     //     Note,
     // })
     return res.json(Note);
+})
+
+
+router.get("/labels",async(req,res)=>{
+    const allNotes = await note.find({ createdBy : req.user }); 
+    let labels=[];
+    allNotes.forEach(lab => {
+         labels.push(lab.label);
+    });
+    const uniquelabels = [...new Set(labels)];
+    // console.log("hello");
+    return res.json({"labels" : uniquelabels});
+})
+
+
+router.get("/labels",async(req,res)=>{
+    const allNotes = await note.find({ createdBy : req.user }); 
+    let labels=[];
+    allNotes.forEach(lab => {
+         labels.push(lab.label);
+    });
+    const uniquelabels = [...new Set(labels)];
+    // console.log("hello");
+    return res.json({"labels" : uniquelabels});
 })
 
 module.exports = router;
