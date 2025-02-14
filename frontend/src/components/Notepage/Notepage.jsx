@@ -47,6 +47,8 @@ export default function LoginPage() {
                     <div key={index} style={{ border: '1px solid #ddd', margin: '10px', padding: '10px' }}>
                         <h3>{note.title}</h3>
                         <p>{note.body}</p>
+                        <button onClick={()=> navigate(`/editnote/${note._id}`)}>edit</button>
+                        <button>view</button>
                     </div>
                 ))
             ) : (

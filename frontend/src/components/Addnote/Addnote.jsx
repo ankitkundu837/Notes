@@ -9,7 +9,7 @@ export default function LoginPage() {
   const [cookies, setCookie, removeCookie] = useCookies([]);
     useEffect(() => {
         if(!cookies.token)
-          navigate('/notepage');
+          navigate('/loginpage');
       },[]);
   async function formSubmit(formData) {
     const body = {
@@ -54,7 +54,7 @@ export default function LoginPage() {
             <input type='text' placeholder='Label...' name='label'  />
           </div>
           <div className='login-button'>
-            <button name='rememberMe'><span>Submit</span></button>
+            <button name='rememberMe'><span>Add Note</span></button>
           </div>
           
         </form>
