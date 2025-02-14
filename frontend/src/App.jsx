@@ -1,8 +1,10 @@
 import LoginPage from './LoginPage.jsx'
 import SignUpPage from './SignUpPage.jsx'
 import Homepage from './Homepage.jsx'
+import Notepage from './Notepage.jsx'
 import { Route ,Routes,useLocation } from "react-router-dom"
 import { useEffect } from "react";
+import "./index.css"
 
 export default function App() {
   return (
@@ -12,6 +14,7 @@ export default function App() {
         <Route path="/" element={<Homepage/>}/>
         <Route path="/loginpage" element={<LoginPage/>}/>
         <Route path="/signuppage" element={<SignUpPage/>}/>
+        <Route path="/notepage" element={<Notepage/>}/>
       </Routes>
     </>
   )
@@ -25,7 +28,7 @@ function DynamicStyles() {
       "/": "/src/Homepage.css",
       "/loginpage": "/src/Loginpage.css",
       "/signuppage": "/src/SignUpPage.css",
-      "/todolist": "/styles/ToDoList.css",
+      "/notepage": "/src/Notepage.css",
     };
 
     const currentStyle = stylesMap[location.pathname];
