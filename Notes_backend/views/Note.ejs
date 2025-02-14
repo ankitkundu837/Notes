@@ -9,11 +9,11 @@
     <%- include('./partials/nav') %>
     <div class="container mt-4">
         <h1><%= Note.title %></h1>
-        <img src="<%= Note.coverImageURL %>" width="60%" alt="">
+        <img src="<%= Note.coverImageURL %>" width="500px" alt="">
         <pre><%= Note.body %></pre>
     </div>
 
-    <div class="container ">
+    <div class="container">
         <img src="<%= Note.createdBy.profileImageURL %>" width="50px" style="border:1px solid blue; border-radius:10%;" alt="">
         <%= Note.createdBy.fullName %>
     </div>
