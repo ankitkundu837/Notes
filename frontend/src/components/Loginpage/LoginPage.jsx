@@ -4,7 +4,7 @@ import { FaLock } from "react-icons/fa";
 import { Link ,useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import {  useEffect } from "react";
-export default function LoginPage() {
+export default function LoginPage({userName, setuserName}) {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
     useEffect(() => {
