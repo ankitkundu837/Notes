@@ -3,20 +3,23 @@ import SignUpPage from './components/Signuppage/SignUpPage.jsx'
 import Homepage from './components/Homepage/Homepage.jsx'
 import Notepage from './components/Notepage/Notepage.jsx'
 import Addnote from './components/Addnote/Addnote.jsx'
+import Editnote from './components/Editnote/Editnote.jsx'
 import { Route ,Routes,useLocation } from "react-router-dom"
 import { useEffect } from "react";
 import "./index.css"
-
+import { useState } from 'react';
 export default function App() {
+  const [userName, setuserName] = useState("");
   return (
     <>
       <DynamicStyles/>
       <Routes>
         <Route path="/" element={<Homepage/>}/>
-        <Route path="/loginpage" element={<LoginPage/>}/>
-        <Route path="/signuppage" element={<SignUpPage/>}/>
-        <Route path="/notepage" element={<Notepage/>}/>
-        <Route path="/addnote" element={<Addnote/>}/>
+        <Route path="/loginpage" element={<LoginPage userName={userName} setuserName={setuserName}/>}/>
+        <Route path="/signuppage" element={<SignUpPage userName={userName} setuserName={setuserName}/>}/>
+        <Route path="/notepage" element={<Notepage userName={userName} setuserName={setuserName}/>}/>
+        <Route path="/addnote" element={<Addnote userName={userName} setuserName={setuserName}/>}/>
+        <Route path="/editnote/:noteId" element={<Editnote />}/>
       </Routes>
     </>
   )
@@ -32,9 +35,11 @@ function DynamicStyles() {
       "/signuppage": "/src/components/Signuppage/SignUpPage.css",
       "/notepage": "/src/components/Notepage/Notepage.css",
       "/addnote": "/src/components/Addnote/Addnote.css",
+      "/editnote/:noteID": "/src/components/Editnote/Editnote.css",
     };
 
-    const currentStyle = stylesMap[location.pathname];
+    const currentStyle = stylesMap[location.pathname] ||
+      (location.pathname.startsWith("/editnote/") && "/src/components/Editnote/Editnote.css");
 
     if (currentStyle) {
       const link = document.createElement("link");
