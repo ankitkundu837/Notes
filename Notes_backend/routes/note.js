@@ -4,14 +4,13 @@ const path = require('path')
 const router = Router();
 const note = require('../models/note');
 
-
 router.get('/add-new', (req, res)=>{
     return res.render('addNote',{
         user: req.user,
     })
 })
 
-router.post('/',  async(req, res)=>{
+router.post('/',async(req, res)=>{
     const {title , body, label} = req.body;
     const Note = await note.create({
         body,

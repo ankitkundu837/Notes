@@ -21,10 +21,6 @@ const userSchema = new Schema(
         type:String,
         requied:true
     },
-    profileImageURL:{
-        type:String,
-        default:'/images/default.png',
-    },
     role:{
         type:String,
         enum:["USER","ADMIN"],
