@@ -2,6 +2,7 @@ import LoginPage from './components/Loginpage/LoginPage.jsx'
 import SignUpPage from './components/Signuppage/SignUpPage.jsx'
 import Homepage from './components/Homepage/Homepage.jsx'
 import Notepage from './components/Notepage/Notepage.jsx'
+import Addnote from './components/Addnote/Addnote.jsx'
 import { Route ,Routes,useLocation } from "react-router-dom"
 import { useEffect } from "react";
 import "./index.css"
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/loginpage" element={<LoginPage/>}/>
         <Route path="/signuppage" element={<SignUpPage/>}/>
         <Route path="/notepage" element={<Notepage/>}/>
+        <Route path="/addnote" element={<Addnote/>}/>
       </Routes>
     </>
   )
@@ -29,6 +31,7 @@ function DynamicStyles() {
       "/loginpage": "/src/components/Loginpage/Loginpage.css",
       "/signuppage": "/src/components/Signuppage/SignUpPage.css",
       "/notepage": "/src/components/Notepage/Notepage.css",
+      "/addnote": "/src/components/Addnote/Addnote.css",
     };
 
     const currentStyle = stylesMap[location.pathname];
