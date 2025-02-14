@@ -4,30 +4,18 @@ const path = require('path')
 const router = Router();
 const note = require('../models/note');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.resolve(`./public/uploads/`))
-    },
-    filename: function (req, file, cb) {
-      const fileName = `${Date.now()}-${file.originalname}`
-      cb(null,fileName);
-    }
-}) 
-const upload = multer({ storage: storage })
-
 router.get('/add-new', (req, res)=>{
     return res.render('addNote',{
         user: req.user,
     })
 })
 
-router.post('/', upload.single('coverImage'), async(req, res)=>{
+router.post('/',async(req, res)=>{
     const {title , body, label} = req.body;
     const Note = await note.create({
         body,
         title,
         createdBy: req.user._id,
-        coverImageURL: `/uploads/${req.file.filename}`,
         label
     })
     return res.redirect(`/note/${Note._id}`)

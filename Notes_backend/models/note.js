@@ -10,10 +10,6 @@ const noteSchema = new Schema({
         type: String,
         required: true
     },
-    coverImageURL :{
-        type:String,
-        required: false,
-    },
     createdBy:{
         type: Schema.Types.ObjectId,
         ref : "user",

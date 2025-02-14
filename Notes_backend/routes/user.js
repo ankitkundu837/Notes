@@ -69,7 +69,4 @@ router.get('/logout', (req, res) => {
     res.clearCookie('token').redirect('/');
 })
 
-router.get('/product', (req, res) => {
-    return res.render("product");
-})
 module.exports = router;
