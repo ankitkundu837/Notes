@@ -52,6 +52,7 @@ router.post('/signin', async (req, res) => {
         res.cookie('token', token)
         return res.json({
             sucess: true,
+            email:email,
             message: "success",
             token: token
         })

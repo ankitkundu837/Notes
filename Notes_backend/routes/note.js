@@ -19,8 +19,10 @@ router.post('/',async(req, res)=>{
         createdBy: req.user._id,
         label
     })
-    return res.redirect(`/note/${Note._id}`)
-    // return res.json({noteid: Note._id,})
+    console.log("added note")
+    return res.json({sucess:true,
+                     noteid: Note._id,})
+    // return res.redirect(`/note/${Note._id}`)
 })
 
 router.patch('/:id', async (req, res) => {    
@@ -74,16 +76,16 @@ router.post('/delete/:id', async (req, res) => {
 
 router.get('/:id',async(req, res)=>{
     const Note = await note.findById(req.params.id).populate("createdBy");
-    console.log("note: ",Note)
-    if(!Note.createdBy || !Note.createdBy._id.equals(req.user._id)) {
-        return res.redirect("/");
-        // return res.json({message : "Cannot access"});
+    console.log(Note)
+    if(!Note.createdBy || !(Note.createdBy._id.equals(req.user._id))) {
+        // return res.redirect("/");
+        return res.json({message : "Cannot access"});
     }
-    return res.render('Note',{
-        user: req.user,
-        Note,
-    })
-    // return res.json({message : "Success"});
+    // return res.render('Note',{
+    //     user: req.user,
+    //     Note,
+    // })
+    return res.json(Note);
 })
 
 module.exports = router;

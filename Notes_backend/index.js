@@ -32,10 +32,12 @@ app.use(express.static(path.resolve('./public')))
 
 app.get('/',async(req,res)=>{
     const allNotes = await note.find({ createdBy : req.user , label : {$ne: "bin"}});
-    return res.render('home',{
-        user: req.user,
-        notes: allNotes,
-    });
+    console.log(allNotes)
+    return res.json(allNotes)
+    // return res.render('home',{
+    //     user: req.user,
+    //     notes: allNotes,
+    // });
 })
 
 app.get('/:label',async(req,res)=>{
