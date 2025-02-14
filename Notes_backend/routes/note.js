@@ -1,0 +1,62 @@
+const {Router} = require('express')
+const multer = require('multer')
+const path = require('path')
+const router = Router();
+const note = require('../models/note');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.resolve(`./public/uploads/`))
+    },
+    filename: function (req, file, cb) {
+      const fileName = `${Date.now()}-${file.originalname}`
+      cb(null,fileName);
+    }
+}) 
+const upload = multer({ storage: storage })
+
+router.get('/add-new', (req, res)=>{
+    return res.render('addNote',{
+        user: req.user,
+    })
+})
+
+router.post('/', upload.single('coverImage'), async(req, res)=>{
+    const {title , body} = req.body;
+    const Note = await note.create({
+        body,
+        title,
+        createdBy: req.user._id,
+        coverImageURL: `/uploads/${req.file.filename}`
+    })
+    return res.redirect(`/note/${Note._id}`)
+})
+
+router.post('/delete/:id', async (req, res) => {
+    try {
+        const Note = await note.findById(req.params.id).populate("createdBy");
+        if(!Note.createdBy._id.equals(req.user._id)) {
+            return res.redirect("/");
+        }
+        await note.findByIdAndDelete(req.params.id);
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error deleting card:', error);
+        res.status(500).send('Error deleting card.');
+    }
+});
+
+
+router.get('/:id',async(req, res)=>{
+    const Note = await note.findById(req.params.id).populate("createdBy");
+    console.log("note: ",Note)
+    if(!Note.createdBy._id.equals(req.user._id)) {
+        return res.redirect("/");
+    }
+    return res.render('Note',{
+        user: req.user,
+        Note,
+    })
+})
+
+module.exports = router;
