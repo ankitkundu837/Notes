@@ -61,8 +61,6 @@ router.post('/signin', async (req, res) => {
             message: "Incorrect Email or Password",
         });
     }
-
-
 })
 
 router.get('/logout', (req, res) => {

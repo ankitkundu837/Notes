@@ -23,20 +23,25 @@ router.post('/',async(req, res)=>{
     // return res.json({noteid: Note._id,})
 })
 
-router.patch('/:label/:id', async (req, res) => {    
+router.patch('/:id', async (req, res) => {    
     try {
         const Note = await note.findById(req.params.id).populate("createdBy");
+        const {title, body, label} = req.body;
+        console.log(req.body)
         if(Note){
-            await note.updateOne(
-                {_id : req.params.id},
-                {$set : {"label" : req.params.label}}
-            );
-            return res.redirect('/');
-            // return res.json({message : 'label updated successfully'});
+            console.log(await note.findOne({_id : req.params.id}));
+            await note.updateOne({_id : req.params.id}, {$set : {
+                "title" : req.body.title,
+                "body" : req.body.body,
+                "label" : req.body.label,
+            }});
+            return res.json({
+                label_: label,
+            });
         }
     } catch (error) {
         console.error('Error updating label:', error);
-        res.status(500).send('Error deleting card.');
+        res.status(500).send('Error patching card.');
         // return res.json({message : 'error encountered'});
     }
 });
