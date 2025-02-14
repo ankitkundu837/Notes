@@ -1,6 +1,4 @@
 const {Router} = require('express')
-const multer = require('multer')
-const path = require('path')
 const router = Router();
 const note = require('../models/note');
 
@@ -86,6 +84,18 @@ router.get('/:id',async(req, res)=>{
     //     Note,
     // })
     return res.json(Note);
+})
+
+
+router.get("/labels",async(req,res)=>{
+    const allNotes = await note.find({ createdBy : req.user }); 
+    let labels=[];
+    allNotes.forEach(lab => {
+         labels.push(lab.label);
+    });
+    const uniquelabels = [...new Set(labels)];
+    // console.log("hello");
+    return res.json({"labels" : uniquelabels});
 })
 
 module.exports = router;

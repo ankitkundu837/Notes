@@ -11,6 +11,7 @@ const note = require('./models/note');
 
 const userRoute = require('./routes/user')
 const noteRoute = require('./routes/note')
+const getLabel = require('./routes/getLabel')
 
 const { checkForAuthenticationCookie } = require('./middlewares/authentication');
 const app = express();
@@ -51,6 +52,7 @@ app.get('/:label',async(req,res)=>{
 app.use('/user',userRoute) 
 // If any request start with /user then use `userRoute`
 app.use('/note',noteRoute) 
+app.use('/getLabel', getLabel)
 
 app.listen(PORT , ()=>console.log(`Server started at PORT:${PORT}`));
 
