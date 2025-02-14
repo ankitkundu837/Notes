@@ -5,7 +5,7 @@ html
 }
 body
 {
-    background-image: url("./images/background1.jpg");
+    background-image: url("/background1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
@@ -65,18 +65,34 @@ body
   transform: translateY(-50%);
 }
 
-.icon-email
+.remember-box
 {
-  position: absolute;
-  right: 20px;
-  top:50%;
-  transform: translateY(-50%);
-  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin: 15px 15px;
+  
+}
+
+.remember-box a
+{
+  text-decoration: none;
+  font-weight: 500;
+  color: #0A2463;
+}
+
+.remember-box input
+{
+  vertical-align:middle;
+}
+
+.remember-box a:hover
+{
+  text-decoration: underline;
 }
 
 .login-button button
 {
-  margin-top: 20px;
   width: 100%;
   height: 45px;
   background: #fff;
@@ -156,7 +172,7 @@ body
   }
 }
 
-.login
+.register
 {
   font-size: 15px;
   text-align: center;
@@ -164,15 +180,14 @@ body
   
 }
 
-.login a
+.register a
 {
   text-decoration: none;
   font-weight: 600;
   color: #274690;
 }
 
-.login a:hover
+.register a:hover
 {
   text-decoration: underline;
 }
-
