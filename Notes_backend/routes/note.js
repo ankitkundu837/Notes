@@ -8,6 +8,7 @@ router.get('/add-new', (req, res)=>{
     return res.render('addNote',{
         user: req.user,
     })
+    // return res.json({message : "add-new"});
 })
 
 router.post('/',async(req, res)=>{
@@ -19,7 +20,8 @@ router.post('/',async(req, res)=>{
         label
     })
     console.log("added note")
-    return res.json({sucess:true})
+    return res.json({sucess:true,
+                     noteid: Note._id,})
     // return res.redirect(`/note/${Note._id}`)
 })
 
@@ -32,10 +34,12 @@ router.patch('/:label/:id', async (req, res) => {
                 {$set : {"label" : req.params.label}}
             );
             return res.redirect('/');
+            // return res.json({message : 'label updated successfully'});
         }
     } catch (error) {
         console.error('Error updating label:', error);
         res.status(500).send('Error deleting card.');
+        // return res.json({message : 'error encountered'});
     }
 });
 
@@ -48,6 +52,7 @@ router.post('/delete/:id', async (req, res) => {
                 {$set : {"label" : "bin"}}
             );
             return res.redirect('/');
+            // return res.json({message : 'note sent to bin'});
         }
         else{
             if(!Note.createdBy._id.equals(req.user._id)) {
@@ -55,10 +60,12 @@ router.post('/delete/:id', async (req, res) => {
             }
             await note.findByIdAndDelete(req.params.id);
             return res.redirect('/');
+            // return res.json({message : 'note deleted successfully'});
         }
     } catch (error) {
         console.error('Error deleting card:', error);
         res.status(500).send('Error deleting card.');
+        // return res.json({message : 'error'});
     }
 });
 
@@ -67,11 +74,13 @@ router.get('/:id',async(req, res)=>{
     console.log("note: ",Note)
     if(!Note.createdBy || !Note.createdBy._id.equals(req.user._id)) {
         return res.redirect("/");
+        // return res.json({message : "Cannot access"});
     }
     return res.render('Note',{
         user: req.user,
         Note,
     })
+    // return res.json({message : "Success"});
 })
 
 module.exports = router;
