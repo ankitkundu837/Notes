@@ -18,6 +18,10 @@ const noteSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref : "user",
     },
+    label:{
+        type:String,
+        default:"def"
+    }
 }, { timestamps : true}
 )
 

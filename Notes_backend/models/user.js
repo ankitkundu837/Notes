@@ -29,7 +29,7 @@ const userSchema = new Schema(
         type:String,
         enum:["USER","ADMIN"],
         default:"USER",
-    }
+    },
 },
 {timestamp: true}
 ); 
