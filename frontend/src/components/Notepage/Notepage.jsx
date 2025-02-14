@@ -1,4 +1,5 @@
 import Navbar from "../NavbarNotePage"
+import Card from "../Card"
 import { useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import { useState, useEffect } from "react";
@@ -44,12 +45,9 @@ export default function LoginPage() {
             <h1>Notes</h1>
             {notes && Array.isArray(notes) && notes.length > 0 ? (
                 notes.map((note, index) => (
-                    <div key={index} style={{ border: '1px solid #ddd', margin: '10px', padding: '10px' }}>
-                        <h3>{note.title}</h3>
-                        <p>{note.body}</p>
-                        <button onClick={()=> navigate(`/editnote/${note._id}`)}>edit</button>
-                        <button>view</button>
-                    </div>
+                    <>
+                    <Card title={note.title} _id={note._id}/>
+                    </>
                 ))
             ) : (
                 <p>No notes available or failed to fetch data.</p>
