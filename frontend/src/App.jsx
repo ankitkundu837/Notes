@@ -6,17 +6,18 @@ import Addnote from './components/Addnote/Addnote.jsx'
 import { Route ,Routes,useLocation } from "react-router-dom"
 import { useEffect } from "react";
 import "./index.css"
-
+import { useState } from 'react';
 export default function App() {
+  const [userName, setuserName] = useState("");
   return (
     <>
       <DynamicStyles/>
       <Routes>
         <Route path="/" element={<Homepage/>}/>
-        <Route path="/loginpage" element={<LoginPage/>}/>
-        <Route path="/signuppage" element={<SignUpPage/>}/>
-        <Route path="/notepage" element={<Notepage/>}/>
-        <Route path="/addnote" element={<Addnote/>}/>
+        <Route path="/loginpage" element={<LoginPage userName={userName} setuserName={setuserName}/>}/>
+        <Route path="/signuppage" element={<SignUpPage userName={userName} setuserName={setuserName}/>}/>
+        <Route path="/notepage" element={<Notepage userName={userName} setuserName={setuserName}/>}/>
+        <Route path="/addnote" element={<Addnote userName={userName} setuserName={setuserName}/>}/>
       </Routes>
     </>
   )

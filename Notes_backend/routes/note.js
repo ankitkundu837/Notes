@@ -18,7 +18,9 @@ router.post('/',async(req, res)=>{
         createdBy: req.user._id,
         label
     })
-    return res.redirect(`/note/${Note._id}`)
+    console.log("added note")
+    return res.json({sucess:true})
+    // return res.redirect(`/note/${Note._id}`)
 })
 
 router.patch('/:label/:id', async (req, res) => {    

@@ -6,37 +6,37 @@ import { useCookies } from "react-cookie"
 import {  useEffect } from "react";
 export default function LoginPage() {
   const navigate = useNavigate();
-//   const [cookies, setCookie, removeCookie] = useCookies([]);
-//     useEffect(() => {
-//         if(cookies.token)
-//           navigate('/notepage');
-//       },[]);
+  const [cookies, setCookie, removeCookie] = useCookies([]);
+    useEffect(() => {
+        if(!cookies.token)
+          navigate('/notepage');
+      },[]);
   async function formSubmit(formData) {
-    // const body = {
-    //   email: formData.get('email'),
-    //   password: formData.get('password'),
-      
-    // }
-    // const formBody = Object.keys(body).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
-    // const requestOptions = {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
-    //   body: formBody
-    // }
-    // try {
-    //   const response = await fetch(
-    //     'http://localhost:8001/user/signin', requestOptions)
-    //     const result = await response.json()
-    //     console.log(result.token)
-    //     // setCookie(result.token)
-    //     if(!result.sucess)
-    //       throw result
-    //     navigate('/notepage');
-    // }
-    // catch (error) {
-    // console.error(error);
-    // }
+    const body = {
+        title: formData.get('title'),
+        body: formData.get('body'),
+        label: formData.get('label')
+    }
+    const formBody = Object.keys(body).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
+    const requestOptions = {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
+      body: formBody
+    }
+    try {
+      const response = await fetch(
+        'http://localhost:8001/note', requestOptions)
+        const result = await response.json()
+        console.log(result.token)
+        // setCookie(result.token)
+        if(!result.sucess)
+          throw result
+        navigate('/notepage');
+    }
+    catch (error) {
+    console.error(error);
+    }
   };
 
   return (
