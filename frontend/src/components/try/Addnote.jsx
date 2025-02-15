@@ -3,21 +3,19 @@ import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { Link ,useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
-import {  useEffect,useState } from "react";
+import {  useEffect } from "react";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
-  const [tags, setTags]=useState(["default"])
     useEffect(() => {
         if(!cookies.token)
           navigate('/loginpage');
       },[]);
   async function formSubmit(formData) {
-    
     const body = {
         title: formData.get('title'),
         body: formData.get('body'),
-        label: tags
+        label: formData.get('label')
     }
     const formBody = Object.keys(body).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
     const requestOptions = {
@@ -30,7 +28,7 @@ export default function LoginPage() {
       const response = await fetch(
         'http://localhost:8001/note', requestOptions)
         const result = await response.json()
-        console.log(body.label)
+        console.log(result.token)
         // setCookie(result.token)
         if(!result.sucess)
           throw result
@@ -40,22 +38,7 @@ export default function LoginPage() {
     console.error(error);
     }
   };
-  function handleKeyDown(e)
-  {
-    console.log(1);
-    if(e.key === 'Enter')
-    {
-      e.preventDefault();
-      setTags([...tags,e.target.value])
-      e.target.value= ""
-    }
-    if(!e.target.value.trim())
-      return
-  }
-  function removeTag(index)
-  {
-    setTags(tags.filter((el,i)=>i!==index))
-  }
+
   return (
     <>
       <div className='container'>
@@ -68,25 +51,8 @@ export default function LoginPage() {
             <textarea type='textarea' placeholder='Note..' name='body' required />
           </div>
           <div className='input-box3'>
-            
-            <input type='text' placeholder='Label...' name='label' onKeyDown={handleKeyDown} />
-            
+            <input type='text' placeholder='Label...' name='label'  />
           </div>
-          <div className="tags-container">
-          {
-            tags.map((tag,index)=>(
-              <div key={index} className="tag-item">
-              <span className="text">{tag}</span>
-              <span className="close" onClick={()=>{
-                if(tags.length!=1)
-                removeTag(index)}}>&times;</span>
-            </div>
-          
-            ))
-          }
-          </div>
-          
-          
           <div className='login-button'>
             <button name='rememberMe'><span>Add Note</span></button>
           </div>

@@ -10,9 +10,8 @@ export default function LoginPage() {
         if (!cookies.token)
             navigate('/loginpage');
     }, []);
-
+    const [count, setCount] = useState(0);
     const [notes, setNotes] = useState([{}]);
-
     useEffect(() => {
         const fetchNotes = async () => {
             const requestOptions = {
@@ -37,7 +36,7 @@ export default function LoginPage() {
 
         fetchNotes();
 
-    }, [notes]);
+    }, [count]);
     return (
         
         <>
@@ -48,9 +47,7 @@ export default function LoginPage() {
             
             {notes && Array.isArray(notes) && notes.length > 0 ? (
                 notes.map((note, index) => (
-                    <>
-                    <Card title={note.title} _id={note._id} setNotes={setNotes}/>
-                    </>
+                    <Card key={index} title={note.title} _id={note._id} setNotes={setNotes} path="bin" count={count} setCount={setCount}/>
                 ))
             ) : (
                 <p>No notes available or failed to fetch data.</p>

@@ -18,7 +18,7 @@ import BlobButton from './BlobButton';
 //   );
 // };
 
-export default function Card({title,_id,setNotes}) {
+export default function Card({title,_id,setNotes,path ,count ,setCount}) {
     const roundButtonStyles = {
         borderRadius: "50%", // Make the 3rd button round
         width: "53px",
@@ -34,15 +34,19 @@ export default function Card({title,_id,setNotes}) {
           
           transition={{ layout: { duration: 1, type: "spring" } }}
           layout
-          onClick={() => setIsOpen(!isOpen)}
           className="card"
         >
           <motion.h2 layout="position">
             <div className='card-layout'><span>{title}</span>
             <div className='buttons-pair'>
-            <BlobButton label="✎ Edit" _id={_id} action="edit"/>
+              
+               {(path!=="bin") && 
+                <BlobButton label="✎ Edit" _id={_id} action="edit" />} 
+
             <BlobButton label="👀 View" _id={_id} action="view"/>
-            <BlobButton label="🗑️" style={roundButtonStyles}_id={_id} action="delete" setNotes={setNotes}/>
+            {(path==="bin") && 
+                <BlobButton label="🗘" _id={_id} action="restore" style={roundButtonStyles} count={count} setCount={setCount}/>}
+            <BlobButton label="🗑️" style={roundButtonStyles}_id={_id} action="delete"count={count} setCount={setCount}/>
             </div>
             </div>
             
