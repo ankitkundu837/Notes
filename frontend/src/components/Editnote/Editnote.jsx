@@ -7,12 +7,13 @@ export default function Editnote() {
   const { noteId } = useParams();
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
+  
   useEffect(() => {
     if (!cookies.token)
       navigate('/loginpage');
   }, []);
   const [notes, setNotes] = useState([]);
-
+  const [tags, setTags]=useState(["default"])
   useEffect(() => {
     const fetchNotes = async () => {
       const requestOptions = {
@@ -27,6 +28,7 @@ export default function Editnote() {
         if (response.ok) {
           const result = await response.json();
           setNotes(result);
+          setTags(result.label)
         } else {
           console.error('Failed to fetch notes:', response.status);
         }
@@ -42,7 +44,7 @@ export default function Editnote() {
     const body = {
         title: formData.get('title'),
         body: formData.get('body'),
-        label: formData.get('label')
+        label:[tags] 
     }
     const formBody = Object.keys(body).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
     const requestOptions = {
@@ -67,7 +69,22 @@ export default function Editnote() {
     console.error(error);
     }
   };
-
+  function handleKeyDown(e)
+  {
+    console.log(1);
+    if(e.key === 'Enter')
+    {
+      e.preventDefault();
+      setTags([...tags,e.target.value])
+      e.target.value= ""
+    }
+    if(!e.target.value.trim())
+      return
+  }
+  function removeTag(index)
+  {
+    setTags(tags.filter((el,i)=>i!==index))
+  }
   return (
     <>
       <div className='container'>
@@ -80,7 +97,22 @@ export default function Editnote() {
             <textarea type='textarea' placeholder='Note..' name='body' defaultValue={notes.body} required />
           </div>
           <div className='input-box3'>
-            <input type='text' placeholder='Label...' name='label' defaultValue={notes.label}/>
+            
+            <input type='text' placeholder='Label...' name='label' onKeyDown={handleKeyDown} />
+            
+          </div>
+          <div className="tags-container">
+          {
+            tags.map((tag,index)=>(
+              <div key={index} className="tag-item">
+              <span className="text">{tag}</span>
+              <span className="close" onClick={()=>{
+                if(tags.length!=1)
+                removeTag(index)}}>&times;</span>
+            </div>
+          
+            ))
+          }
           </div>
           <div className='login-button'>
             <button name='rememberMe'><span>Edit</span></button>

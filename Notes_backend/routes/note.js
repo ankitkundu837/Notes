@@ -11,11 +11,13 @@ router.get('/add-new', (req, res)=>{
 
 router.post('/',async(req, res)=>{
     const {title , body, label} = req.body;
+    const arrLabel= label.split(",");
+    
     const Note = await note.create({
         body,
         title,
         createdBy: req.user._id,
-        label
+        label: arrLabel
     })
     return res.json({sucess:true,
                      noteid: Note._id,})
@@ -26,11 +28,12 @@ router.patch('/:id', async (req, res) => {
     try {
         const Note = await note.findById(req.params.id).populate("createdBy");
         const {title, body, label} = req.body;
+        const arrLabel= label.split(",");
         if(Note){
             await note.updateOne({_id : req.params.id}, {$set : {
                 "title" : req.body.title,
                 "body" : req.body.body,
-                "label" : req.body.label,
+                "label" : arrLabel,
             }});
             return res.json({
                 sucess:true,
@@ -46,27 +49,46 @@ router.patch('/:id', async (req, res) => {
 
 router.post('/delete/:id', async (req, res) => {
     try {
+        // Find the note by its ID and populate the createdBy field
         const Note = await note.findById(req.params.id).populate("createdBy");
-        if(Note.label !== 'bin'){
+        
+        // Check if the 'bin' tag exists in the label array
+        if (!Note.label.includes("bin")) {
+            // If 'bin' is not found in the label array, set label to ["bin"]
             await note.updateOne(
-                {_id : req.params.id},
-                {$set : {"label" : "bin"}}
+                { _id: req.params.id },
+                { $set: { label: ["bin",...Note.label] } }
             );
-            // return res.redirect('/');
-            return res.json({message : 'note sent to bin'});
-        }
-        else{
-            if(!Note.createdBy._id.equals(req.user._id)) {
+            
+            // Fetch all notes created by the user excluding those with the 'bin' label
+            const allNotes = await note.find({ createdBy: req.user, label: { $ne: "bin" } });
+            
+            return res.json(allNotes);
+        } else {
+            // If the note is already in the bin, check if the current user is the owner
+            if (!Note.createdBy._id.equals(req.user._id)) {
                 return res.redirect("/");
             }
+
+            // Delete the note if the user owns it
             await note.findByIdAndDelete(req.params.id);
-            // return res.redirect('/');
-            return res.json({message : 'note deleted successfully'});
+
+            // Fetch all notes in the 'bin' label and filter by the user
+            const notesInBin = await note.find({ label: "bin" }).populate("createdBy");
+            const filteredNotes = notesInBin.filter(note => 
+                note.createdBy && req.user && note.createdBy._id.equals(req.user._id)
+            );
+
+            // If no notes are found or the user has no permissions, send an error message
+            if (filteredNotes.length === 0) {
+                return res.json({ message: "No notes found or you don't have permission to view them." });
+            }
+
+            return res.json(filteredNotes);
         }
     } catch (error) {
         console.error('Error deleting card:', error);
-        // res.status(500).send('Error deleting card.');
-        return res.json({message : 'error'});
+        return res.json({ message: 'Error' });
     }
 });
 

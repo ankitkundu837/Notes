@@ -8,9 +8,9 @@ export default function LoginPage() {
     const [cookies, setCookie, removeCookie] = useCookies([]);
     useEffect(() => {
         if (!cookies.token)
-            navigate('/login');
+            navigate('/loginpage');
     }, []);
-
+    const [count, setCount] = useState(0);
     const [notes, setNotes] = useState([{}]);
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function LoginPage() {
 
         fetchNotes();
 
-    }, [notes]);
+    }, [count]);
     return (
         
         <>
@@ -49,9 +49,7 @@ export default function LoginPage() {
             
             {notes && Array.isArray(notes) && notes.length > 0 ? (
                 notes.map((note, index) => (
-                    <>
-                    <Card title={note.title} _id={note._id} setNotes={setNotes}/>
-                    </>
+                    <Card key={index} title={note.title} _id={note._id} setNotes={setNotes} path="note" count={count} setCount={setCount}/>
                 ))
             ) : (
                 <p>No notes available or failed to fetch data.</p>

@@ -15,8 +15,8 @@ const noteSchema = new Schema({
         ref : "user",
     },
     label:{
-        type:String,
-        default:"def"
+        type: [String],
+        default: ["def"]
     }
 }, { timestamps : true}
 )

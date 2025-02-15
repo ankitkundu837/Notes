@@ -12,7 +12,7 @@ export default function Editnote() {
       navigate('/loginpage');
   }, []);
   const [notes, setNotes] = useState([]);
-
+  const [tags, setTags]=useState(["default"])
   useEffect(() => {
     const fetchNotes = async () => {
       const requestOptions = {
@@ -27,6 +27,8 @@ export default function Editnote() {
         if (response.ok) {
           const result = await response.json();
           setNotes(result);
+          console.log(Array.isArray(result.label))
+          setTags(result.label)
         } else {
           console.error('Failed to fetch notes:', response.status);
         }
@@ -39,7 +41,7 @@ export default function Editnote() {
 
   }, []);
  function formSubmit(formData) {
-        navigate('/notepage');
+    navigate(-1);
   };
 
   return (
@@ -53,8 +55,16 @@ export default function Editnote() {
           <div className='input-box2'>
             <textarea type='textarea' placeholder='Note..' name='body' value={notes.body} readOnly />
           </div>
-          <div className='input-box3'>
-            <input type='text' placeholder='Label...' name='label' value={notes.label} readOnly/>
+          <div className="tags-container">
+          {
+            tags.map((tag,index)=>(
+              <div key={index} className="tag-item">
+              <span className="text">{tag}</span>
+              <span className="close">&times;</span>
+            </div>
+          
+            ))
+          }
           </div>
           <div className='login-button'>
             <button name='rememberMe'><span>Back</span></button>
