@@ -87,7 +87,6 @@ body
   position: relative;
   width: 100%;
   height: 50px;
-  margin-bottom: 20px;
 }
 
 .input-box3 input
@@ -106,7 +105,7 @@ body
 .login-button button
 {
     position: relative;
-    margin-top: 17px;
+    margin-top: 25px;
   width: 100%;
   height: 45px;
   background: #fff;
@@ -186,6 +185,27 @@ body
   }
 }
 
+.register
+{
+  font-size: 15px;
+  text-align: center;
+  margin: 15px 0 0;
+  
+}
+
+.register a
+{
+  text-decoration: none;
+  font-weight: 600;
+  color: #274690;
+}
+
+.register a:hover
+{
+  text-decoration: underline;
+}
+
+
 .tag-item
 {
   background-color:white ;
@@ -209,7 +229,6 @@ body
   align-items: center;
   margin-left: .5em;
   font-size: 18px;
-  cursor: pointer;
 }
 
 .tags-container

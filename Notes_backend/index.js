@@ -1,3 +1,4 @@
+require('dotenv').config()
 const cors = require('cors')
 const express = require('express');
 const path = require('path');    
@@ -5,8 +6,12 @@ const ejs = require('ejs')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
-mongoose.connect('mongodb://127.0.0.1:27017/To-Do-List')
+const PORT = process.env.PORT;
+const URL = process.env.URL;
+
+mongoose.connect(URL)
 .then((e)=> console.log("MongoDB Connected"))
+.catch((e)=> console.error("Connection error",e))
 const note = require('./models/note');
 
 const userRoute = require('./routes/user')
@@ -15,10 +20,11 @@ const getLabel = require('./routes/getLabel')
 
 const { checkForAuthenticationCookie } = require('./middlewares/authentication');
 const app = express();
-const PORT = 8001;
 
+app.set("views", __dirname + "/views");
 app.set("view engine","ejs")
-app.set("views", path.resolve( "views"));
+app.use(express.static(__dirname + "public"));
+// app.set("views", path.resolve( "views"));
 
 //middleware
 app.use(cors({
@@ -47,7 +53,7 @@ app.get('/:label',async(req,res)=>{
 app.use('/user',userRoute) 
 // If any request start with /user then use `userRoute`
 app.use('/note',noteRoute) 
-app.use('/getLabel', getLabel)
+app.use('/getlabel', getLabel)
 
 app.listen(PORT , ()=>console.log(`Server started at PORT:${PORT}`));
 

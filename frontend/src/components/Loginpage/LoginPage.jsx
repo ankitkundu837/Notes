@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { Link ,useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
-import {  useEffect } from "react";
+import {  useEffect,useState } from "react";
 export default function LoginPage({userName, setuserName}) {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
@@ -11,7 +11,30 @@ export default function LoginPage({userName, setuserName}) {
         if(cookies.token)
           navigate('/notepage');
       },[]);
+      const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("username");
+    const savedPassword = localStorage.getItem("password");
+
+    if (savedUsername && savedPassword) {
+      setUsername(savedUsername);
+      setPassword(savedPassword);
+      setRememberMe(true);
+    }
+  }, []);
   async function formSubmit(formData) {
+    if (rememberMe) {
+      
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+    } else {
+      
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
+    }
     const body = {
       email: formData.get('email'),
       password: formData.get('password'),
@@ -26,7 +49,7 @@ export default function LoginPage({userName, setuserName}) {
     }
     try {
       const response = await fetch(
-        'http://localhost:8001/user/signin', requestOptions)
+        `${import.meta.env.VITE_BACKEND_LINK}/user/signin`, requestOptions)
         const result = await response.json()
         console.log(result.token)
         // setCookie(result.token)
@@ -38,25 +61,30 @@ export default function LoginPage({userName, setuserName}) {
     console.error(error);
     }
   };
-
+  const handleUsernameChange = (e) => setUsername(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
   return (
     <>
       <div className='container'>
         <form action={formSubmit}>
           <h1>Login</h1>
           <div className='input-box'>
-            <input type='email' placeholder='Email' name='email' required />
+            <input type='email' placeholder='Email' name='email' value={username}
+          onChange={handleUsernameChange} required />
             <FaUser className="icon" />
           </div>
           <div className='input-box'>
-            <input type='password' placeholder='Password' name='password' required />
+            <input type='password' placeholder='Password' name='password' value={password}
+          onChange={handlePasswordChange} required />
             <FaLock className="icon" />
           </div>
           <div className='remember-box'>
             <label>
-              <input type='checkbox' name='rememberMe' />
+              <input type='checkbox' name='rememberMe' checked={rememberMe}
+            onChange={handleRememberMeChange}/>
               Remember me</label>
-            <a href='/reset'>Forgot Password?</a>
+            <a href='/loginpage'>Forgot Password?</a>
           </div>
           <div className='login-button'>
             <button name='rememberMe'><span>Login</span></button>

@@ -12,7 +12,6 @@ export default function LoginPage() {
     }, []);
     const [count, setCount] = useState(0);
     const [notes, setNotes] = useState([{}]);
-
     useEffect(() => {
         const fetchNotes = async () => {
             const requestOptions = {
@@ -22,12 +21,11 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch(`${import.meta.env.VITE_BACKEND_LINK}/`, requestOptions);
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_LINK}/getlabel/bin`, requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();
                     setNotes(result);
-                    console.log(notes)
                 } else {
                     console.error('Failed to fetch notes:', response.status);
                 }
@@ -49,7 +47,7 @@ export default function LoginPage() {
             
             {notes && Array.isArray(notes) && notes.length > 0 ? (
                 notes.map((note, index) => (
-                    <Card key={index} title={note.title} _id={note._id} setNotes={setNotes} path="note" count={count} setCount={setCount}/>
+                    <Card key={index} title={note.title} _id={note._id} setNotes={setNotes} path="bin" count={count} setCount={setCount}/>
                 ))
             ) : (
                 <p>No notes available or failed to fetch data.</p>
