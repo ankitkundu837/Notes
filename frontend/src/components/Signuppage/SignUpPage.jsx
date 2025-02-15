@@ -28,7 +28,7 @@ export default function SignUpPage({userName, setuserName}) {
     }
     try {
       const response = await fetch(
-        'http://localhost:8001/user/signup', requestOptions)
+        'https://to-do-list-three-red-15.vercel.app/user/signup', requestOptions)
         const result = await response.json()
         console.log(result)
         if(!result.sucess)
