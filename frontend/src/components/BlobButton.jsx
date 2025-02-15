@@ -22,7 +22,7 @@ function BlobButton({ label, _id, action, style, setNotes, count, setCount }) {
         };
 
         try {
-          const response = await fetch(`http://localhost:8001/note/${_id}`, requestOptions);
+          const response = await fetch(`https://to-do-list-three-red-15.vercel.app/note/${_id}`, requestOptions);
 
           if (response.ok) {
             const result = await response.json();
@@ -40,7 +40,7 @@ function BlobButton({ label, _id, action, style, setNotes, count, setCount }) {
             }
             try {
               const response = await fetch(
-                `http://localhost:8001/note/${_id}`, requestOptions)
+                `https://to-do-list-three-red-15.vercel.app/note/${_id}`, requestOptions)
               const result = await response.json()
 
               // console.log(result.token)
@@ -70,7 +70,7 @@ function BlobButton({ label, _id, action, style, setNotes, count, setCount }) {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
         };
         try {
-          const response = await fetch(`http://localhost:8001/note/delete/${_id}`, requestOptions);
+          const response = await fetch(`https://to-do-list-three-red-15.vercel.app/note/delete/${_id}`, requestOptions);
 
           if (response.ok) {
             const result = await response.json();

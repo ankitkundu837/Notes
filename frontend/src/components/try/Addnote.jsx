@@ -26,7 +26,7 @@ export default function LoginPage() {
     }
     try {
       const response = await fetch(
-        'http://localhost:8001/note', requestOptions)
+        'https://to-do-list-three-red-15.vercel.app/note', requestOptions)
         const result = await response.json()
         console.log(result.token)
         // setCookie(result.token)

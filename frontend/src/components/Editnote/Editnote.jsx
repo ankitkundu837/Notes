@@ -23,7 +23,7 @@ export default function Editnote() {
       };
 
       try {
-        const response = await fetch(`http://localhost:8001/note/${noteId}`, requestOptions);
+        const response = await fetch(`https://to-do-list-three-red-15.vercel.app/note/${noteId}`, requestOptions);
 
         if (response.ok) {
           const result = await response.json();
@@ -55,7 +55,7 @@ export default function Editnote() {
     }
     try {
       const response = await fetch(
-        `http://localhost:8001/note/${noteId}`, requestOptions)
+        `https://to-do-list-three-red-15.vercel.app/note/${noteId}`, requestOptions)
         const result = await response.json()
         
         // console.log(result.token)
