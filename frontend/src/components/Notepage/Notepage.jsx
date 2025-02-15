@@ -22,7 +22,7 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch(`${import.meta.env.backend}/`, requestOptions);
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_LINK}/`, requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();

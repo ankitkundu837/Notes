@@ -22,7 +22,7 @@ function BlobButton({ label, _id, action, style, setNotes, count, setCount }) {
         };
 
         try {
-          const response = await fetch(`https://to-do-list-three-red-15.vercel.app/note/${_id}`, requestOptions);
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_LINK}/note/${_id}`, requestOptions);
 
           if (response.ok) {
             const result = await response.json();

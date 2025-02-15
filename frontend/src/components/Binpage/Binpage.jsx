@@ -21,7 +21,7 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch(`${import.meta.env.backend}/getlabel/bin`, requestOptions);
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_LINK}/getlabel/bin`, requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();
