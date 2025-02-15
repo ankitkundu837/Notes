@@ -22,7 +22,7 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch('https://to-do-list-three-red-15.vercel.app/', requestOptions);
+                const response = await fetch(`${import.meta.env.backend}/`, requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();

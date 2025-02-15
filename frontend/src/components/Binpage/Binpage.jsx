@@ -21,7 +21,7 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch('https://to-do-list-three-red-15.vercel.app/getlabel/bin', requestOptions);
+                const response = await fetch(`${import.meta.env.backend}/getlabel/bin`, requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();
