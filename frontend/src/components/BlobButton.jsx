@@ -1,20 +1,45 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom"
-function BlobButton({label, _id, edit}) {
+function BlobButton({label, _id, action, style}) {
   const navigate = useNavigate();
   function handleClick()
   {
-    if(edit)
+    if(action==="edit")
     {
       navigate(`/editnote/${_id}`)
     }
-    else{
+    else if(action==="view"){
       navigate(`/viewnote/${_id}`)
+    }
+    else
+    {
+      const deleteNotes = async () => {
+        const requestOptions = {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+      };
+        try {
+            const response = await fetch(`http://localhost:8001/note/delete/${_id}`, requestOptions);
+
+            if (response.ok) {
+                const result = await response.json();
+                setNotes([{}])
+                navigate(`/notepage`)
+            } else {
+                console.error('Failed to delete notes:', response.status);
+            }
+        } catch (error) {
+            console.error('Error deleting notes:', error);
+        }
+    };
+
+    deleteNotes();
     }
   }
   return (
     <div className="buttons">
-      <button className="blob-btn" onClick={handleClick}>
+      <button className="blob-btn" onClick={handleClick} style={style?style:null}>
         {label}
         <span className="blob-btn__inner">
           <span className="blob-btn__blobs">
