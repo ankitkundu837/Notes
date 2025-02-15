@@ -10,7 +10,9 @@ export default function Navbar()
     return(
         <nav className="navbar">
             <Link to="/"  >Home</Link>
+            <Link to="/notepage">📑 All Notes</Link>
             <Link to="/addnote">+ Add Notes</Link>
+            <Link to="/binpage">♻ Bin</Link>
             <Link to="/logout" onClick={(e) => { e.preventDefault(); handleLogout(); }}>Logout</Link>
         </nav>
     )

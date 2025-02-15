@@ -22,12 +22,11 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch('http://localhost:8001/', requestOptions);
+                const response = await fetch('http://localhost:8001/getlabel/bin', requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();
                     setNotes(result);
-                    console.log(notes)
                 } else {
                     console.error('Failed to fetch notes:', response.status);
                 }

@@ -18,8 +18,16 @@ import BlobButton from './BlobButton';
 //   );
 // };
 
-export default function Card({title,_id}) {
-  
+export default function Card({title,_id,setNotes}) {
+    const roundButtonStyles = {
+        borderRadius: "50%", // Make the 3rd button round
+        width: "53px",
+        height: "53px", // Ensure it's a perfect circle
+        fontSize: "18px", // Optional: Increase font size to fit well
+        // display: "flex", // To use flexbox for centering
+        justifyText: "center", 
+        alignText: "center",
+      };
     return (
       <div className="App">
         <motion.div
@@ -32,8 +40,9 @@ export default function Card({title,_id}) {
           <motion.h2 layout="position">
             <div className='card-layout'><span>{title}</span>
             <div className='buttons-pair'>
-            <BlobButton label="✎ Edit" _id={_id} edit={true}/>
-            <BlobButton label="👀 View" _id={_id} edit={false}/>
+            <BlobButton label="✎ Edit" _id={_id} action="edit"/>
+            <BlobButton label="👀 View" _id={_id} action="view"/>
+            <BlobButton label="🗑️" style={roundButtonStyles}_id={_id} action="delete" setNotes={setNotes}/>
             </div>
             </div>
             

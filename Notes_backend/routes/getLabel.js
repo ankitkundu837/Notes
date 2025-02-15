@@ -16,5 +16,21 @@ router.get('/show',async(req,res)=>{
         "labels" : uniquelabels
     });
 })
+router.get('/bin', async (req, res) => {
+    try {
+        const notesInBin = await note.find({ "label": "bin" }).populate("createdBy");
+        const filteredNotes = notesInBin.filter(note => 
+            note.createdBy && req.user && note.createdBy._id.equals(req.user._id)
+        );
 
+        if (filteredNotes.length === 0) {
+            return res.json({ message: "No notes found or you don't have permission to view them." });
+        }
+
+        return res.json(filteredNotes);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
+    }
+});
 module.exports = router;

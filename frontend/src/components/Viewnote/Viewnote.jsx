@@ -38,52 +38,26 @@ export default function Editnote() {
     fetchNotes();
 
   }, []);
-  async function formSubmit(formData) {
-    const body = {
-        title: formData.get('title'),
-        body: formData.get('body'),
-        label: formData.get('label')
-    }
-    const formBody = Object.keys(body).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
-    const requestOptions = {
-      method: 'PATCH',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
-      body: formBody
-    }
-    try {
-      const response = await fetch(
-        `http://localhost:8001/note/${noteId}`, requestOptions)
-        const result = await response.json()
-        
-        // console.log(result.token)
-        // setCookie(result.token)
-        if(!result.sucess)
-          throw result
+ function formSubmit(formData) {
         navigate('/notepage');
-        
-    }
-    catch (error) {
-    console.error(error);
-    }
   };
 
   return (
     <>
       <div className='container'>
         <form action={formSubmit}>
-          <h1>Edit Note</h1>
+          <h1>View Note</h1>
           <div className='input-box'>
-            <input type='text' placeholder='Title...' name='title' defaultValue={notes.title}required />
+            <input type='text' placeholder='Title...' name='title' value={notes.title} readOnly />
           </div>
           <div className='input-box2'>
-            <textarea type='textarea' placeholder='Note..' name='body' defaultValue={notes.body} required />
+            <textarea type='textarea' placeholder='Note..' name='body' value={notes.body} readOnly />
           </div>
           <div className='input-box3'>
-            <input type='text' placeholder='Label...' name='label' defaultValue={notes.label}/>
+            <input type='text' placeholder='Label...' name='label' value={notes.label} readOnly/>
           </div>
           <div className='login-button'>
-            <button name='rememberMe'><span>Edit</span></button>
+            <button name='rememberMe'><span>Back</span></button>
           </div>
 
         </form>
