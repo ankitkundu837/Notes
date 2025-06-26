@@ -95,8 +95,7 @@ This project is licensed under the **MIT License**.
 ## 📬 Contact
 
 **Team Name:** Code_404  
-**Team Leader:** Ankit Kundu  
-**Team members:** Neelim Goswami, Ritam Som, Shuva Gopal Kundu  
+**Team members:** Neelim Goswami, Ritam Som, Shuva Gopal Kundu, Ankit Kundu 
 **College:** Jadavpur University  
 📧 **Email:** [ankitkundu837@gmail.com](mailto:ankitkundu837@gmail.com)  
 🔗 **GitHub Repo:** [https://github.com/ankitkundu837/Noted](https://github.com/ankitkundu837/Noted)
