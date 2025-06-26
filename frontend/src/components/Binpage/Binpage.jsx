@@ -21,7 +21,7 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch('http://localhost:8001/getlabel/bin', requestOptions);
+                const response = await fetch(`/api/getlabel/bin`, requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();

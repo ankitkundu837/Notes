@@ -7,8 +7,10 @@ export default function LoginPage() {
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies([]);
     useEffect(() => {
-        if (!cookies.token)
+        if (!cookies.token){
+            console.log(cookies.token);
             navigate('/loginpage');
+        }
     }, []);
     const [count, setCount] = useState(0);
     const [notes, setNotes] = useState([{}]);
@@ -22,7 +24,7 @@ export default function LoginPage() {
             };
 
             try {
-                const response = await fetch('http://localhost:8001/', requestOptions);
+                const response = await fetch(`/api/`, requestOptions);
 
                 if (response.ok) {
                     const result = await response.json();

@@ -28,7 +28,7 @@ export default function LoginPage() {
     }
     try {
       const response = await fetch(
-        'http://localhost:8001/note', requestOptions)
+        `/api/note`, requestOptions)
         const result = await response.json()
         console.log(body.label)
         // setCookie(result.token)

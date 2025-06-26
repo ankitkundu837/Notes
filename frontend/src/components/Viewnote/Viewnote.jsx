@@ -22,7 +22,7 @@ export default function Editnote() {
       };
 
       try {
-        const response = await fetch(`http://localhost:8001/note/${noteId}`, requestOptions);
+        const response = await fetch(`/api/note/${noteId}`, requestOptions);
 
         if (response.ok) {
           const result = await response.json();
