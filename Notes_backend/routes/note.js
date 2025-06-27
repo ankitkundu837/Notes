@@ -19,7 +19,7 @@ router.post('/',async(req, res)=>{
         body,
         title,
         createdBy: req.user._id,
-        label: arrLabel
+          label: arrLabel
     })
     return res.json({sucess:true,
                      noteid: Note._id,})
@@ -32,7 +32,7 @@ router.patch('/:id', async (req, res) => {
         const {title, body, label} = req.body;
         const arrLabel= label.split(",");
         if(Note){
-            await note.updateOne({_id : req.params.id}, {$set : {
+             await note.updateOne({_id : req.params.id}, {$set : {
                 "title" : req.body.title,
                 "body" : req.body.body,
                 "label" : arrLabel,
