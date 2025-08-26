@@ -26,6 +26,7 @@ Noted/
 ├── Notes_backend/        # Express backend
 ├── README.md      # Project documentation
 └── package.json   # Project dependencies
+
 ```
 
 ## ⚙️ Setup Instructions
